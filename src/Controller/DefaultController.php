@@ -39,4 +39,5 @@ class DefaultController extends AbstractController
         $args = [];
         return $this->render($template, $args);
     }
+
 }
