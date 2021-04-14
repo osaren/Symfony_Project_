@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New BookClubMonth{% endblock %}
+
+{% block body %}
+    <h1>Create new BookClubMonth</h1>
+
+    {{ include('book_club_month/_form.html.twig') }}
+
+    <a href="{{ path('book_club_month_index') }}">back to list</a>
+{% endblock %}

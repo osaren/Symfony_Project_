@@ -2,15 +2,15 @@
 
 namespace App\Entity;
 
-use App\Repository\ClubRepository;
+use App\Repository\MonthRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=ClubRepository::class)
+ * @ORM\Entity(repositoryClass=MonthRepository::class)
  */
-class Club
+class Month
 {
     /**
      * @ORM\Id
@@ -22,10 +22,10 @@ class Club
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $clubName;
+    private $monthName;
 
     /**
-     * @ORM\OneToMany(targetEntity=BookClubMonth::class, mappedBy="club")
+     * @ORM\OneToMany(targetEntity=BookClubMonth::class, mappedBy="month")
      */
     private $bookClubMonths;
 
@@ -34,20 +34,19 @@ class Club
         $this->bookClubMonths = new ArrayCollection();
     }
 
-
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getClubName(): ?string
+    public function getMonthName(): ?string
     {
-        return $this->clubName;
+        return $this->monthName;
     }
 
-    public function setClubName(string $clubName): self
+    public function setMonthName(string $monthName): self
     {
-        $this->clubName = $clubName;
+        $this->monthName = $monthName;
 
         return $this;
     }
@@ -64,7 +63,7 @@ class Club
     {
         if (!$this->bookClubMonths->contains($bookClubMonth)) {
             $this->bookClubMonths[] = $bookClubMonth;
-            $bookClubMonth->setClub($this);
+            $bookClubMonth->setMonth($this);
         }
 
         return $this;
@@ -74,16 +73,17 @@ class Club
     {
         if ($this->bookClubMonths->removeElement($bookClubMonth)) {
             // set the owning side to null (unless already changed)
-            if ($bookClubMonth->getClub() === $this) {
-                $bookClubMonth->setClub(null);
+            if ($bookClubMonth->getMonth() === $this) {
+                $bookClubMonth->setMonth(null);
             }
         }
 
         return $this;
     }
+
     public function __toString()
     {
         // TODO: Implement __toString() method.
-        return $this->clubName;
+        return $this->monthName;
     }
 }

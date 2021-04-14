@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}BookClubMonth index{% endblock %}
+
+{% block body %}
+    <h1>BookClubMonth index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for book_club_month in book_club_months %}
+            <tr>
+                <td>{{ book_club_month.id }}</td>
+                <td>
+                    <a href="{{ path('book_club_month_show', {'id': book_club_month.id}) }}">show</a>
+                    <a href="{{ path('book_club_month_edit', {'id': book_club_month.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="2">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('book_club_month_new') }}">Create new</a>
+{% endblock %}

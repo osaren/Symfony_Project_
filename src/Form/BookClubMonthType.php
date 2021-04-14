@@ -2,24 +2,26 @@
 
 namespace App\Form;
 
-use App\Entity\Club;
+use App\Entity\BookClubMonth;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class ClubType extends AbstractType
+class BookClubMonthType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('clubName')
+            ->add('book')
+            ->add('club')
+            ->add('month')
         ;
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => Club::class,
+            'data_class' => BookClubMonth::class,
         ]);
     }
 }
