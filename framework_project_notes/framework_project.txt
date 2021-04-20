@@ -1,0 +1,5 @@
+- make an entity with many to one relationship to book, club, month for attributes
+
+- attach comment entity to user many to one
+
+- fixtures:

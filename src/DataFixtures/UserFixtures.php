@@ -46,4 +46,5 @@ class UserFixtures extends Fixture
 
         return $user;
     }
+
 }
