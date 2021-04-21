@@ -23,11 +23,13 @@ class UserFixtures extends Fixture
         $userUser = $this->createUser('user@user.com', 'user');
         $userAdmin = $this->createUser('admin@admin.com', 'admin', 'ROLE_ADMIN');
         $userMatt = $this->createUser('matt@matt.com', 'matt', 'ROLE_SUPER_ADMIN');
+        $userStaff = $this->createUser('staff@staff.com', 'staff', 'ROLE_STAFF');
 
         // add to DB queue
         $manager->persist($userUser);
         $manager->persist($userAdmin);
         $manager->persist($userMatt);
+        $manager->persist($userStaff);
 
         // send query to DB
         $manager->flush();

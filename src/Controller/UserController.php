@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Repository\ClubRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -9,7 +10,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 
 /**
- * @Route("/user", name="user")
+ * @Route("/user", name="user_")
  * @IsGranted("ROLE_USER")
  */
 
@@ -17,7 +18,7 @@ class UserController extends AbstractController
 {
 
     /**
-     * @Route("/", name="user_homepage")
+     * @Route("/", name="homepage")
      */
 
     public function index(): Response
@@ -28,13 +29,13 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/clubs", name="user_club_list")
+     * @Route("/club", name="club_list", methods={"GET"})
      */
-    public function about(): Response
+    public function club(ClubRepository $clubRepository): Response
     {
-        $template = 'user/club.html.twig';
-        $args = [];
-        return $this->render($template, $args);
+        return $this->render('user/club.html.twig', [
+            'clubs' => $clubRepository->findAll(),
+        ]);
     }
 
 }
