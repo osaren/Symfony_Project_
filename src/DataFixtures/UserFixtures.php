@@ -20,7 +20,8 @@ class UserFixtures extends Fixture
     public function load(ObjectManager $manager)
     {
         // create objects
-        $userUser = $this->createUser('user@user.com', 'user');
+        $userUser = $this->createUser('member@member.com', 'member');
+        $userMember = $this->createUser('member1@member1.com', 'member1', 'ROLE_MEMBER');
         $userAdmin = $this->createUser('admin@admin.com', 'admin', 'ROLE_ADMIN');
         $userMatt = $this->createUser('matt@matt.com', 'matt', 'ROLE_SUPER_ADMIN');
         $userStaff = $this->createUser('staff@staff.com', 'staff', 'ROLE_STAFF');
@@ -30,6 +31,7 @@ class UserFixtures extends Fixture
         $manager->persist($userAdmin);
         $manager->persist($userMatt);
         $manager->persist($userStaff);
+        $manager->persist($userMember);
 
         // send query to DB
         $manager->flush();

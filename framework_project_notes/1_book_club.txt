@@ -1,3 +1,6 @@
+q1 staff login
+q2 admin crud users
+
 summary: ONline Book Club (Dublin Book Clubs Online: DUBCO)
 
 There are several book clubs using the site.

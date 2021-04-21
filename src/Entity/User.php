@@ -10,7 +10,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
- * @ORM\Table(name="`user`")
+ * @ORM\Table(name="`member`")
  */
 class User implements UserInterface
 {
@@ -47,15 +47,10 @@ class User implements UserInterface
      */
     private $club;
 
-    /**
-     * @ORM\OneToMany(targetEntity=UserClub::class, mappedBy="user")
-     */
-    private $userClubs;
 
     public function __construct()
     {
         $this->comments = new ArrayCollection();
-        $this->userClubs = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -76,7 +71,7 @@ class User implements UserInterface
     }
 
     /**
-     * A visual identifier that represents this user.
+     * A visual identifier that represents this member.
      *
      * @see UserInterface
      */
@@ -125,7 +120,7 @@ class User implements UserInterface
      */
     public function eraseCredentials()
     {
-        // If you store any temporary, sensitive data on the user, clear it here
+        // If you store any temporary, sensitive data on the member, clear it here
         // $this->plainPassword = null;
     }
 
@@ -183,33 +178,4 @@ class User implements UserInterface
         return $this;
     }
 
-    /**
-     * @return Collection|UserClub[]
-     */
-    public function getUserClubs(): Collection
-    {
-        return $this->userClubs;
-    }
-
-    public function addUserClub(UserClub $userClub): self
-    {
-        if (!$this->userClubs->contains($userClub)) {
-            $this->userClubs[] = $userClub;
-            $userClub->setUser($this);
-        }
-
-        return $this;
-    }
-
-    public function removeUserClub(UserClub $userClub): self
-    {
-        if ($this->userClubs->removeElement($userClub)) {
-            // set the owning side to null (unless already changed)
-            if ($userClub->getUser() === $this) {
-                $userClub->setUser(null);
-            }
-        }
-
-        return $this;
-    }
 }
