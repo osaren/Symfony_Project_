@@ -7,10 +7,13 @@
 
     <table class="table">
         <tbody>
+        {% if is_granted('ROLE_ADMIN') %}
             <tr>
                 <th>Id</th>
                 <td>{{ book.id }}</td>
             </tr>
+        {% else %}
+        {% endif %}
             <tr>
                 <th>Title</th>
                 <td>{{ book.title }}</td>
@@ -24,7 +27,9 @@
 
     <a href="{{ path('book_index') }}">back to list</a>
 
-    <a href="{{ path('book_edit', {'id': book.id}) }}">edit</a>
-
-    {{ include('book/_delete_form.html.twig') }}
+    {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_STAFF')  %}
+        <a href="{{ path('book_edit', {'id': book.id}) }}">edit</a>
+        {{ include('book/_delete_form.html.twig') }}
+    {% else %}
+    {% endif %}
 {% endblock %}

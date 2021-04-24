@@ -12,7 +12,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 /**
  * @Route("/user", name="member_")
- * @Security("is_granted('ROLE_ADMIN') or is_granted('ROLE_MEMBER')")
+ * @Security("is_granted('ROLE_ADMIN') or is_granted('ROLE_MEMBER') or is_granted('ROLE_STAFF') or is_granted('ROLE_USER')")
  */
 
 class MemberController extends AbstractController

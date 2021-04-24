@@ -3,26 +3,39 @@
 {% block title %}Book index{% endblock %}
 
 {% block body %}
-    <h1>Book index</h1>
+    {% if is_granted('ROLE_ADMIN') %}
+        <h1>Book Index</h1>
+    {% else %}
+        <h1>Book List</h1>
+    {% endif %}
 
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
-                <th>Title</th>
-                <th>Author</th>
-                <th>actions</th>
+                {% if is_granted('ROLE_ADMIN') %}
+                    <th>Id</th>
+                {% else %}
+                {% endif %}
+                    <th>Title</th>
+                    <th>Author</th>
+                    <th>actions</th>
             </tr>
         </thead>
         <tbody>
         {% for book in books %}
             <tr>
-                <td>{{ book.id }}</td>
+                {% if is_granted('ROLE_ADMIN') %}
+                    <td>{{ book.id }}</td>
+                {% else %}
+                {% endif %}
                 <td>{{ book.title }}</td>
                 <td>{{ book.author }}</td>
                 <td>
-                    <a href="{{ path('book_show', {'id': book.id}) }}">show</a>
-                    <a href="{{ path('book_edit', {'id': book.id}) }}">edit</a>
+                        <a href="{{ path('book_show', {'id': book.id}) }}">show</a>
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <a href="{{ path('book_edit', {'id': book.id}) }}">edit</a>
+                    {% else %}
+                    {% endif %}
                 </td>
             </tr>
         {% else %}
@@ -33,5 +46,10 @@
         </tbody>
     </table>
 
-    <a href="{{ path('book_new') }}">Create new</a>
+    {% if is_granted('ROLE_ADMIN') %}
+        <a href="{{ path('book_new') }}">Create new</a>
+    {% else %}
+    {% endif %}
+
+    <a href="{{ path('book_club_month_index') }}">Back</a>
 {% endblock %}

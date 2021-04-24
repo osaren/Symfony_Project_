@@ -2,24 +2,59 @@
 
 {% block title %}BookClubMonth index{% endblock %}
 
-{% block body %}
-    <h1>BookClubMonth index</h1>
+{% block head %}
+    <!-- for sort -->
+    <script>
+        var $  = require( 'jquery' );
+        var dt = require( 'datatables.net' )();
 
-    <table class="table">
+        $(document).ready( function () {
+            $('#myTable').DataTable();
+        } );
+    </script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.css">
+
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.js"></script>
+{% endblock %}
+
+{% block body %}
+    {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_STAFF')%}
+        <h1>BookClubMonth index</h1>
+    {% else %}
+        <h1>List Of Books and Clubs</h1>
+    {% endif %}
+
+
+    <table class="table" id="myTable">
         <thead>
             <tr>
-                <th>Id</th>
-                <th>actions</th>
+                {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_STAFF')%}
+                    <th>Id</th>
+                {% else %}
+                {% endif %}
+                    <th>book</th>
+                    <th>club</th>
+                    <th>month</th>
+                    <th>actions</th>
             </tr>
         </thead>
         <tbody>
         {% for book_club_month in book_club_months %}
             <tr>
-                <td>{{ book_club_month.id }}</td>
-                <td>
-                    <a href="{{ path('book_club_month_show', {'id': book_club_month.id}) }}">show</a>
-                    <a href="{{ path('book_club_month_edit', {'id': book_club_month.id}) }}">edit</a>
-                </td>
+                {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_STAFF')%}
+                    <td>{{ book_club_month.id }}</td>
+                {% else %}
+                {% endif %}
+                    <td>{{ book_club_month.book }}</td>
+                    <td>{{ book_club_month.club }}</td>
+                    <td>{{ book_club_month.month }}</td>
+                    <td>
+                        <a href="{{ path('book_club_month_show', {'id': book_club_month.id}) }}">show</a>
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <a href="{{ path('book_club_month_edit', {'id': book_club_month.id}) }}">edit</a>
+                        {% else %}
+                        {% endif %}
+                    </td>
             </tr>
         {% else %}
             <tr>
@@ -29,5 +64,12 @@
         </tbody>
     </table>
 
-    <a href="{{ path('book_club_month_new') }}">Create new</a>
+    {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_STAFF') %}
+        <a href="{{ path('book_club_month_new') }}">Create new</a>
+    {% else %}
+    {% endif %}
+    <a href="{{ path('default') }}">Back</a><br>
+    <a href="{{ path('book_index') }}"> List Of Books </a><br>
+    <a href="{{ path('club_index') }}"> List Of Clubs </a><br>
+
 {% endblock %}

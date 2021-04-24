@@ -3,24 +3,37 @@
 {% block title %}Club index{% endblock %}
 
 {% block body %}
-    <h1>Club index</h1>
+    {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_STAFF')  %}
+        <h1>Club Index</h1>
+    {% else %}
+        <h1>Club List</h1>
+    {% endif %}
 
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
-                <th>ClubName</th>
-                <th>actions</th>
+                {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_STAFF')  %}
+                    <th>Id</th>
+                {% else %}
+                {% endif %}
+                    <th>ClubName</th>
+                    <th>actions</th>
             </tr>
         </thead>
         <tbody>
         {% for club in clubs %}
             <tr>
-                <td>{{ club.id }}</td>
-                <td>{{ club.clubName }}</td>
+                {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_STAFF')  %}
+                    <td>{{ club.id }}</td>
+                {% else %}
+                {% endif %}
+                    <td>{{ club.clubName }}</td>
                 <td>
-                    <a href="{{ path('club_show', {'id': club.id}) }}">show</a>
-                    <a href="{{ path('club_edit', {'id': club.id}) }}">edit</a>
+                        <a href="{{ path('club_show', {'id': club.id}) }}">show</a>
+                    {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_STAFF')  %}
+                        <a href="{{ path('club_edit', {'id': club.id}) }}">edit</a>
+                    {% else %}
+                    {% endif %}
                 </td>
             </tr>
         {% else %}
@@ -31,5 +44,10 @@
         </tbody>
     </table>
 
-    <a href="{{ path('club_new') }}">Create new</a>
+
+    {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_STAFF') %}
+        <a href="{{ path('club_new') }}">Create new</a>
+    {% else %}
+    {% endif %}
+    <a href="{{ path('book_club_month_index') }}">Back</a>
 {% endblock %}

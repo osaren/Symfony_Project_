@@ -9,9 +9,12 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 /**
  * @Route("/club")
+ *
  */
 class ClubController extends AbstractController
 {
@@ -27,6 +30,7 @@ class ClubController extends AbstractController
 
     /**
      * @Route("/new", name="club_new", methods={"GET","POST"})
+     * @IsGranted("ROLE_ADMIN", message="Access only available for admins")
      */
     public function new(Request $request): Response
     {
@@ -60,6 +64,7 @@ class ClubController extends AbstractController
 
     /**
      * @Route("/{id}/edit", name="club_edit", methods={"GET","POST"})
+     * @IsGranted("ROLE_ADMIN", message="Access only available for admins")
      */
     public function edit(Request $request, Club $club): Response
     {
@@ -80,6 +85,7 @@ class ClubController extends AbstractController
 
     /**
      * @Route("/{id}", name="club_delete", methods={"DELETE"})
+     * @IsGranted("ROLE_ADMIN", message="Access only available for admins")
      */
     public function delete(Request $request, Club $club): Response
     {

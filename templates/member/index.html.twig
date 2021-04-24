@@ -9,14 +9,30 @@
 </style>
 
 <div class="example-wrapper">
-    <h1>USER HOMEPAGE</h1>
+    {% if is_granted('ROLE_ADMIN') %}
+        <h1>Admin HOMEPAGE</h1>
+    {% elseif is_granted('ROLE_STAFF') %}
+        <h1>Staff HOMEPAGE</h1>
+    {% elseif is_granted('ROLE_MEMBER') %}
+        <h1>Member HOMEPAGE</h1>
+    {% else %}
+    <!-- leave default links for normal users -->
+        <h1>User HOMEPAGE</h1>
+    {% endif %}
 
     <!-- use path for links -->
     <!-- use twig filter to filter certain links -->
     <a href="{{ path('member_club_list') }}"> Club List </a><br>
+
     {% if is_granted('ROLE_ADMIN') %}
-        <a href="{{ path('user_index') }}"> Index(for admins) </a><br>
+        <a href="{{ path('user_index') }}"> Create more users (admins or staff) </a><br>
+        <a href="{{ path('club_index') }}"> Create Club(for admins & staff) </a><br>
+
+    {% elseif is_granted('ROLE_STAFF') %}
+        <a href="{{ path('club_index') }}"> Create Club(for admins & staff) </a><br>
+
     {% else %}
+    <!-- leave default links for normal users -->
     {% endif %}
 
     <a href="{{ path('app_logout') }}"> Logout </a><br>

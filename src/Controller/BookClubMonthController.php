@@ -9,6 +9,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 /**
  * @Route("/book_club_month")
@@ -27,6 +29,7 @@ class BookClubMonthController extends AbstractController
 
     /**
      * @Route("/new", name="book_club_month_new", methods={"GET","POST"})
+     * @IsGranted("ROLE_ADMIN", message="Access only available for admins")
      */
     public function new(Request $request): Response
     {
@@ -60,6 +63,7 @@ class BookClubMonthController extends AbstractController
 
     /**
      * @Route("/{id}/edit", name="book_club_month_edit", methods={"GET","POST"})
+     * @IsGranted("ROLE_ADMIN", message="Access only available for admins")
      */
     public function edit(Request $request, BookClubMonth $bookClubMonth): Response
     {
@@ -80,6 +84,7 @@ class BookClubMonthController extends AbstractController
 
     /**
      * @Route("/{id}", name="book_club_month_delete", methods={"DELETE"})
+     * @IsGranted("ROLE_ADMIN", message="Access only available for admins")
      */
     public function delete(Request $request, BookClubMonth $bookClubMonth): Response
     {
