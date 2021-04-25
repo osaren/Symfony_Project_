@@ -20,20 +20,20 @@
         <h1>User HOMEPAGE</h1>
     {% endif %}
 
-    <!-- use path for links -->
-    <!-- use twig filter to filter certain links -->
-    <a href="{{ path('member_club_list') }}"> Club List </a><br>
-
     {% if is_granted('ROLE_ADMIN') %}
-        <a href="{{ path('user_index') }}"> Create more users (admins or staff) </a><br>
-        <a href="{{ path('club_index') }}"> Create Club(for admins & staff) </a><br>
+        <p>Welcome to the admin page: Use special links to manage entities</p>
 
     {% elseif is_granted('ROLE_STAFF') %}
-        <a href="{{ path('club_index') }}"> Create Club(for admins & staff) </a><br>
+        <p>Welcome to the admin page: Use special links to manage entities</p>
+        <a href="{{ path('club_index') }}"> Manage Clubs(for staff) </a><br>
 
     {% else %}
     <!-- leave default links for normal users -->
     {% endif %}
+
+    <!-- use path for links -->
+    <!-- use twig filter to filter certain links -->
+    <a href="{{ path('member_club_list') }}"> Club List </a><br>
 
     <a href="{{ path('app_logout') }}"> Logout </a><br>
 </div>

@@ -73,4 +73,10 @@ class BookClubMonth
 
         return $this;
     }
+
+    public function __toString()
+    {
+        // TODO: Implement __toString() method.
+        return $this->book + $this->club + $this->month;
+    }
 }

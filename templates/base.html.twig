@@ -7,19 +7,67 @@
            and uncomment the following Encore helpers to start using Symfony UX #}
 
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-        {% block stylesheets %}
-            {#{{ encore_entry_link_tags('app') }}#}
 
-        {% endblock %}
+        <style>
+            nav {
+                background-color: black;
+            }
+        </style>
+
 
         <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-        {% block javascripts %}
-            {#{{ encore_entry_script_tags('app') }}#}
-        {% endblock %}
+
     </head>
     <body>
-        {% block body %}{% endblock %}
+        <!-- nav -->
+        <nav class="navbar navbar-expand-lg navbar-dark navbar-bg mb-5">
+            <a style="margin-left: 0.1rem;" class="navbar-brand space-brand" href="{{ path('default') }}">
+                My Great Website !
+            </a>
+                {% if is_granted('ROLE_ADMIN') %}
+                <li>
+                    <a href="{{ path('member_homepage') }}">Home Page</a>
+                </li>
+                {% else %}
+                {% endif %}
+                <li>
+                    <a href="{{ path('app_about') }}"> About </a><br>
+                </li>
+                <li>
+                    <a href="{{ path('app_sitemap') }}"> Sitemap </a><br>
+                </li>
+                <li>
+                    <a href="{{ path('book_club_month_index') }}"> List Of Books and Clubs </a><br>
+                </li>
+                {% if is_granted('ROLE_ADMIN') %}
+                    <li>
+                        <a href="{{ path('user_index') }}"> Manage Users </a><br>
+                    </li>
+                    <li>
+                        <a href="{{ path('comment_index') }}"> Manage Comments </a><br>
+                    </li>
+                    <li>
+                        <a href="{{ path('book_index') }}"> Manage Books </a><br>
+                    </li>
+                    <li>
+                        <a href="{{ path('club_index') }}"> Manage Clubs </a><br>
+                    </li>
+                    <li>
+                        <a href="{{ path('month_index') }}"> Configure Months </a><br>
+                    </li>
+                {% else %}
+                {% endif %}
+            </ul>
+        </nav>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12">
+                    {% block body %}{% endblock %}
+                </div>
+            </div>
+        </div>
     </body>
 </html>

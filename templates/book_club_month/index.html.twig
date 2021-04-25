@@ -56,10 +56,15 @@
     </table>
 
     {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_STAFF') %}
-        <a href="{{ path('book_club_month_new') }}">Create new</a>
+        <a href="{{ path('book_club_month_new') }}">Create new</a><br>
     {% else %}
     {% endif %}
-    <a href="{{ path('default') }}">Back</a><br>
+    {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_STAFF') or is_granted('ROLE_USER') or is_granted('ROLE_MEMBER') %}
+        <a href="{{ path('member_homepage') }}">Back</a>
+    {% else %}
+        <a href="{{ path('default') }}">Back</a>
+    {% endif %}
+
     <a href="{{ path('book_index') }}"> List Of Books </a><br>
     <a href="{{ path('club_index') }}"> List Of Clubs </a><br>
 

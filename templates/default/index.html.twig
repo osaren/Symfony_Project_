@@ -3,14 +3,8 @@
 {% block title %}Index Page{% endblock %}
 
 {% block body %}
-<h1>Index page</h1>
+<h1>Book Club Website</h1>
 
-   Index
-
-<!-- use path for links -->
-<br><a href="{{ path('app_login') }}"> login </a><br>
-<a href="{{ path('app_about') }}"> About </a><br>
-<a href="{{ path('app_sitemap') }}"> Sitemap </a><br>
-<a href="{{ path('book_club_month_index') }}"> List Of Books and Clubs </a><br>
+<p> Welcome to the book club website! <a href="{{ path('app_login') }}"> login </a> for more info</p>
 
 {% endblock %}

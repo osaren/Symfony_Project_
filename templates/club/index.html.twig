@@ -49,5 +49,9 @@
         <a href="{{ path('club_new') }}">Create new</a>
     {% else %}
     {% endif %}
-    <a href="{{ path('book_club_month_index') }}">Back</a>
+    {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_STAFF') or is_granted('ROLE_USER') or is_granted('ROLE_MEMBER') %}
+        <a href="{{ path('member_homepage') }}">Back</a>
+    {% else %}
+        <a href="{{ path('book_club_month_index') }}">Back</a>
+    {% endif %}
 {% endblock %}
