@@ -112,5 +112,9 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="jquery.dataTables" level="application" />
+    <orderEntry type="library" name="purecss" level="application" />
+    <orderEntry type="library" name="jquery.mobile.structure-1.4.5" level="application" />
+    <orderEntry type="library" name="jquery-1.11.1" level="application" />
+    <orderEntry type="library" name="jquery.mobile-1.4.5" level="application" />
   </component>
 </module>
